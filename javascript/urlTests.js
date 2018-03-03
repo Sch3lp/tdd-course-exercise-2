@@ -1,7 +1,7 @@
 describe("url matching", () => {
 
 	it("should verify with http", () => {
-		expect(verifyUrl('http://www.prato.be')).toBe(true);
+		expect(verifyUrl('http://www.thundercats.com')).toBe(true);
 	});
 
 	it("should verify ending url with dot should fail", () => {

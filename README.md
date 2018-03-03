@@ -1,63 +1,53 @@
 # TDD Lab Exercise 2
 
-Oefeningen voor http://wgroeneveld.github.io/tdd-course
+Exercises for http://sch3lp.github.io/tdd-course
 
-## Technologie
+## Assignment
 
-Bij voorkeur in PHP. Test Harnas met PHPUnit. [Zie ook PHPUnit documentatie](https://phpunit.de/manual/current/en/index.html).
+### calculate.js
 
-Andere talen zijn ook beschikbaar, zie bijhorende submapjes. 
+Our customers have reported a bug:
 
-## Opdracht beschrijving
+> Abigail is able to log in, but Jos is not. Can you please fix this ASAP so Jos can get back to work again?
+>
+> Thanks!
+>
+> PS: last week I also reported a bug that people with an underscore in their username also couldn't log in.
+> PPS: If you don't fix this IN PRODUCTION within 30 minutes the company will lose 100.000 EUR!!!!
 
-### Calculator.php
+The senior in our team has already identified the bug to be in this piece of _legacy code_, but doesn't have the time to fix it, so now it's up to you.
 
-Gegeven een stukje 'legacy code'. 
-Onze klanten melden een bug: onderstaande code is niet correct. 
+```javascript
+calculate = (u) => {
+    let x = /^(?=[a-z]{2})(?=.{4,26})(?=[^.]*\.?[^.]*$)(?=[^_]*_?[^_]*$)[\w.]+$/gi;
+    return u.match(x) !== null;
+}
+```
 
-```php
-function calculate() {
-	$u = $_POST['i'];
+This function will return `true` when Abigail attempts to log in, and `false` when Jos attempts to log in.
 
-	if (!preg_match('/^(?=[a-z]{2})(?=.{4,26})(?=[^.]*\.?[^.]*$)(?=[^_]*_?[^_]*$)[\w.]+$/iD',
-	                $u))
-	{
-	 return false;
+### url.js
+
+This time it's our ops team that reports a bug:
+
+> Thanks again for saving the company 100.000 EUR, but I'm sorry to report another bug.
+> We upgraded our servers overnight because of a failed hack attempt. We started serving our applications with ssl certificates under the https protocol. But we're seeing nothing bugt url verification failures in our logs.
+> If you can fix this before 7:00, we might keep our customers from noticing!
+> 
+> Thanks in advance!
+
+You've searched for a piece of code with _verify url_ and found a highly suspicious piece of code:
+```javascript
+verifyUrl = (u) => {
+	let c = /http:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+	let re = new RegExp(c);
+	if (!re.test(u)) {
+		return false;
 	}
-	else
-	{
-	 return true;
+	else {
+		return true;
 	}
 }
 ```
 
-De functie retourneert `TRUE` wanneer Abigail inlogt, maar `FALSE` indien Jos probeert in te loggen.
-
-Gelieve de code aan te passen zodat Jos ook kan verder werken. 
-
-Vorige week belde dezelfde klant om te melden dat gebruikersnamen met underscores ook niet correct werken. 
-Kan jij dit voor 16h in productie zetten, anders verliezen we 100.000 EUR!
-
-Om het resultaat te zien, voer `php calculator.php` uit op je command line. We maken gebruik van `var_dump()` om het resultaat te tonen.
-
-### Url.php
-
-Gegeven een tweede stukje 'legacy code'.
-Onze klanten melden weer een bug: ze hebben de servers geupgrade omwille van een hack aanval. De applicaties zijn nu gehost met een certificaat onder HTTPS. De onderstaande code blijkt hier niet compatibel mee te zijn:
-
-```php
-function verifyUrl($URL) {
-		$pattern = "_(^|[\s.:;?\-\]<\(])(http://[-\w;/?:@&=+$\|\_.!~*\|'()\[\]%#,☺]+[\w/#](\(\))?)(?=$|[\s',\|\(\).:;?\-\[\]>\)])_i";
-      if(preg_match($pattern, $URL)) {
-        return true;
-      } else{
-        return false;
-      }
-  }
-```
-Graag de code up-to-date brengen. 
-Dit kan deze keer gelukkig genoeg met **unit testen** dus schrijf eerst een falende test bij! (urlTests.php)
-
-``phpunit tests`` om de testen uit te voeren vanuit de root folder.
-
-(Noot: in JS en andere talen is de opdracht analoog)
+This code does have **unit tests**, so first write a failing test! (in urlTests.js).
