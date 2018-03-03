@@ -53,4 +53,4 @@ verifyUrl = (u) => {
 }
 ```
 
-This code does have **unit tests**, so first write a failing test! (in urlTests.js).
+This code does have **unit tests**, so first write a failing test (in urlTests.js).
