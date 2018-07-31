@@ -33,7 +33,7 @@ This time it's our ops team that reports a bug:
 
 > Thanks again for saving the company 100.000 EUR, but I'm sorry to report another bug.
 >
-> We upgraded our servers overnight because of a failed hack attempt. We started serving our applications with ssl certificates under the https protocol. But we're seeing nothing bugt url verification failures in our logs.
+> We upgraded our servers overnight because of a failed hack attempt. We started serving our applications with ssl certificates under the https protocol. However we're seeing nothing but url verification failures in our logs.
 >
 > If you can fix this before 7:00, we might keep our customers from noticing!
 > 
